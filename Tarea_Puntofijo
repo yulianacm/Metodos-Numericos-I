@@ -1,0 +1,167 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyM4WQOkDfQJgGMcUZre/kex",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/yulianacm/Metodos-Numericos-I/blob/main/Tarea_Puntofijo\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Método de iteración de punto fijo"
+      ],
+      "metadata": {
+        "id": "gJR7fFUzsMEL"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from math import *\n",
+        "import numpy as np\n",
+        "import matplotlib . pyplot as plt"
+      ],
+      "metadata": {
+        "id": "xgNz3w4iRtyD"
+      },
+      "execution_count": 61,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def g(x):  # Definimos la función g(p) la cual fue despejada y se uso una variante para obtener el resultado\n",
+        "    return ((x+1)/x)**1/2"
+      ],
+      "metadata": {
+        "id": "nulf8Ak3RNYR"
+      },
+      "execution_count": 62,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Ingresamos los datos de entrada dados en el problema\n",
+        "a = 1\n",
+        "b = 2\n",
+        "\n",
+        "# guarda valores iniciales\n",
+        "a0 = a\n",
+        "b0 = b\n",
+        "\n",
+        "#guarda valores iniciales del error y del número de iteraciones\n",
+        "p0 = 1    #Aproximación inicial\n",
+        "tol= 0.001   #Error o tolerancia de 10**-2 #float(input(\"Ingrese el valor de la tolerancia: \"))\n",
+        "nmax= 100    #Número máximo de iteraciones #float(input(\"Ingrese el número máximo de iteraciones: \"))\n",
+        "ni=1         #Número de iteración\n",
+        "error=0\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "YmmS9zUxRxX0"
+      },
+      "execution_count": 63,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def metodo_punto_fijo(funcion, g, a, b, tol, nmax):\n",
+        "    print(\"# iter\\t\\t p \\t\\t f(p) \\t\\t error\")\n",
+        "    ni = 1  #Iniciar el contador de iteraciones\n",
+        "\n",
+        "    #Paso 1:Calcular el primer punto medio\n",
+        "    p0 = (a + b) / 2  # Punto medio inicial\n",
+        "    fp = funcion(p0)  # Evaluar la función en el punto medio\n",
+        "    print(f\"{ni} \\t\\t {p0:.3f} \\t\\t {fp:.3f}\")  # Imprimir el primer punto\n",
+        "\n",
+        "    ni += 1  # Aumentar el número de iteraciones\n",
+        "\n",
+        "    # Paso 2: Continuar con g(p) a partir de la segunda iteración\n",
+        "    errores=[]\n",
+        "    while ni <= nmax:\n",
+        "        p = abs(g(p0))  # Calcular el siguiente valor de p como g(p0)\n",
+        "        fp = funcion(p)  # Evaluar f(p)\n",
+        "        error = abs(p - p0)  # Calcular el error con respecto al valor anterior\n",
+        "        print(f\"{ni} \\t\\t {p:.3f} \\t\\t {fp:.3f} \\t {error:.3f}\")\n",
+        "        if error < tol:         # Comprobamos la tolerancia\n",
+        "            print(f'Salida: {p} (El procedimiento fue exitoso.)')\n",
+        "            return p\n",
+        "        p0 = p   # Actualizar p0 con p\n",
+        "        error = abs(b - a)\n",
+        "        c=error/0.667\n",
+        "        errores.append(c)\n",
+        "        ni += 1  # Incrementar el número de iteraciones\n",
+        "\n",
+        "    # Si no se encuentra la raíz después del número máximo de iteraciones\n",
+        "    print(f'El método falló después de {nmax} iteraciones, nmax = {nmax} (El procedimiento no fue exitoso.)')\n",
+        "    return None\n",
+        "\n",
+        "# Ejecutar el método del punto fijo\n",
+        "metodo_punto_fijo(funcion, g, a, b, tol, nmax)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "786Z5Juopmvj",
+        "outputId": "721eb886-a479-413f-dbe5-300462408cd4"
+      },
+      "execution_count": 70,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "# iter\t\t p \t\t f(p) \t\t error\n",
+            "1 \t\t 1.500 \t\t 0.875\n",
+            "2 \t\t 0.833 \t\t -1.255 \t 0.667\n",
+            "3 \t\t 1.100 \t\t -0.769 \t 0.267\n",
+            "4 \t\t 0.955 \t\t -1.085 \t 0.145\n",
+            "5 \t\t 1.024 \t\t -0.951 \t 0.069\n",
+            "6 \t\t 0.988 \t\t -1.023 \t 0.035\n",
+            "7 \t\t 1.006 \t\t -0.988 \t 0.018\n",
+            "8 \t\t 0.997 \t\t -1.006 \t 0.009\n",
+            "9 \t\t 1.001 \t\t -0.997 \t 0.004\n",
+            "10 \t\t 0.999 \t\t -1.001 \t 0.002\n",
+            "11 \t\t 1.000 \t\t -0.999 \t 0.001\n",
+            "12 \t\t 1.000 \t\t -1.000 \t 0.001\n",
+            "Salida: 0.9998169168802636 (El procedimiento fue exitoso.)\n"
+          ]
+        },
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0.9998169168802636"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 70
+        }
+      ]
+    }
+  ]
+}
