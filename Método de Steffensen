@@ -1,0 +1,142 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyP5iOks8dHFFl/U+jl7nd9h",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/yulianacm/Metodos-Numericos-I/blob/main/M%C3%A9todo%20de%20Steffensen\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Método de Steffensen"
+      ],
+      "metadata": {
+        "id": "qMU7_P_itSPv"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from math import cos\n",
+        "#Importar librería"
+      ],
+      "metadata": {
+        "id": "JpG1eV0soR1L"
+      },
+      "execution_count": 25,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Definir la función f(x) = cos(x) - 2x + 3\n",
+        "def f(x):\n",
+        "    return cos(x) - 2*x + 3\n",
+        "#Definir la función de iteración g(x)\n",
+        "def g(x):\n",
+        "    return (cos(x) + 3)/2"
+      ],
+      "metadata": {
+        "id": "yJGNrwOZoNwQ"
+      },
+      "execution_count": 26,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Parámetros dados\n",
+        "x0= 0.5\n",
+        "tol=0.00001\n",
+        "max_iter=100"
+      ],
+      "metadata": {
+        "id": "fSRBny7UqQhm"
+      },
+      "execution_count": 27,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Desarrollamos el método\n",
+        "def steffensen(g, x0, tol, max_iter):\n",
+        "    print(f\"Iteración       x            Error      \") #Para la tabla\n",
+        "\n",
+        "    for i in range(max_iter):\n",
+        "        #Calcular las aproximaciones\n",
+        "        x1= g(x0)\n",
+        "        x2= g(x1)\n",
+        "\n",
+        "        #Aplicar la aceleración de Aitken\n",
+        "        denominador = x2 - 2 * x1 + x0\n",
+        "        if abs(denominador) < 0.000001:  #Que no de 0 en el denominador\n",
+        "            print(f\"Denominador muy pequeño\")\n",
+        "            break\n",
+        "\n",
+        "        #Actualizar x0 directamente y calcular el error\n",
+        "        x01= x0\n",
+        "        x0= x0 - ((x1 - x0)**2)/denominador\n",
+        "        error = abs(x0 - x01)\n",
+        "        print(f\"{i+1:^9}    {x0:<14.5f} {error:<14.5f}\") #Imprime la iteración actual, el valor de x y el error\n",
+        "\n",
+        "        #Verifica el criterio\n",
+        "        if error < tol:\n",
+        "            print(f\"Converge en {i+1} iteraciones.\")\n",
+        "            return x0\n",
+        "\n",
+        "    print(\"No converge dentro del máximo de iteraciones.\")\n",
+        "    return\n",
+        "\n",
+        "#Llama al método de Steffensen como lo nombramos al inicio\n",
+        "resultado= steffensen(g, x0, tol, max_iter)\n",
+        "\n",
+        "# Imprime los resultados\n",
+        "print(f\"Solución obtenida: {resultado}\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "iZ65GvOfoFH8",
+        "outputId": "98801986-931b-4d94-c418-395ebbf8fd1c"
+      },
+      "execution_count": 24,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Iteración       x            Error      \n",
+            "    1        1.50616        1.00616       \n",
+            "    2        1.52359        0.01744       \n",
+            "    3        1.52359        0.00000       \n",
+            "Converge en 3 iteraciones.\n",
+            "Solución obtenida: 1.5235929330974833\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
