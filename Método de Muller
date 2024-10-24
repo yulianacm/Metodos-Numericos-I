@@ -1,0 +1,143 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOgHLBywDjTmmDRmFwY/NIk",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/yulianacm/Metodos-Numericos-I/blob/main/M%C3%A9todo%20de%20Muller\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import cmath #Importar la librería"
+      ],
+      "metadata": {
+        "id": "rKVwolsz5QCJ"
+      },
+      "execution_count": 14,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Prueba con un polinomio\n",
+        "def polinomio(x):\n",
+        "    return x**3 - 6*x**2 + 11*x - 6"
+      ],
+      "metadata": {
+        "id": "_JD7tbcz4wCm"
+      },
+      "execution_count": 15,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Valores iniciales cercanos a la raíz\n",
+        "p0= 0.5\n",
+        "p1= 2.5\n",
+        "p2= 3.5\n",
+        "\n",
+        "# Definir tolerancia y número máximo de iteraciones\n",
+        "tol= 0.00001\n",
+        "N0= 100"
+      ],
+      "metadata": {
+        "id": "O6BLG2HP40eZ"
+      },
+      "execution_count": 19,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def muller(f, p0, p1, p2, tol, N0):\n",
+        "    i= 3  # Inicialización del contador de iteraciones\n",
+        "\n",
+        "    # Paso 1: Calcular h1, h2, δ1, δ2, d\n",
+        "    h1= p1 - p0\n",
+        "    h2= p2 - p1\n",
+        "    delta1= (f(p1) - f(p0)) / h1\n",
+        "    delta2= (f(p2) - f(p1)) / h2\n",
+        "    d= (delta2 - delta1) / (h2 + h1)\n",
+        "\n",
+        "    # Paso 2: Bucle\n",
+        "    while i <= N0:\n",
+        "        # Paso 3: Calcular b y D (la definí como Dm)\n",
+        "        b= delta2 + h2 * d\n",
+        "        Dm= cmath.sqrt(b**2 - 4 * f(p2) * d)\n",
+        "\n",
+        "        # Paso 4: Seleccionar el valor de E\n",
+        "        if abs(b - Dm) < abs(b + Dm):\n",
+        "            E= b + Dm\n",
+        "        else:\n",
+        "            E= b - Dm\n",
+        "\n",
+        "        # Paso 5: Calcular h y p\n",
+        "        h= -2 * f(p2) / E\n",
+        "        p= p2 + h\n",
+        "\n",
+        "        # Paso 6: Verificar que la tolerancia se cumpla\n",
+        "        if abs(h)<tol:\n",
+        "            print(f\"El procedimiento fue exitoso con {i} iteraciones.\")\n",
+        "            return \"{:.5f}\".format(p)\n",
+        "\n",
+        "        # Paso 7: Preparar la siguiente iteración\n",
+        "        p0, p1, p2= p1, p2, p\n",
+        "        h1= p1 - p0\n",
+        "        h2= p2 - p1\n",
+        "        delta1= (f(p1) - f(p0)) / h1\n",
+        "        delta2= (f(p2) - f(p1)) / h2\n",
+        "        d= (delta2 - delta1) / (h2 + h1)\n",
+        "        i+= 1\n",
+        "\n",
+        "    # Paso 8: Si no convergió, indicar que el método falló\n",
+        "    print(f\"El método falló después de {N0} iteraciones.\")\n",
+        "    return None\n",
+        "\n",
+        "# Llamar el método\n",
+        "raiz= muller(polinomio, p0, p1, p2, tol, N0)\n",
+        "if raiz is not None:\n",
+        "    print(f\"Una raíz aproximada es: {raiz}\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "eWQXNINqT2BX",
+        "outputId": "98482ff9-4e5d-4f4d-9b3b-f8c2fca7551f"
+      },
+      "execution_count": 20,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "El procedimiento fue exitoso con 8 iteraciones.\n",
+            "Una raíz aproximada es: 3.00000+0.00000j\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
