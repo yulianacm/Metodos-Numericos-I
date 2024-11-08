@@ -1,0 +1,223 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPMEv6m/lF4namVaMMpmZdJ",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/yulianacm/Metodos-Numericos-I/blob/main/TutorialNumpy\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "TUTORIAL DE NUMPY"
+      ],
+      "metadata": {
+        "id": "587Nul4jZhz4"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Pasos a seguir para manejar NumPy\n",
+        "Paso 1: Importar la biblioteca."
+      ],
+      "metadata": {
+        "id": "wXwyyelvZ-vN"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np"
+      ],
+      "metadata": {
+        "id": "e8XggIKHaHSl"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Paso 2: Crear arreglos (arrays)\n",
+        "Estos son creados porque son la estructura de datos principal en `NumPy`. Se pueden crear a partir de listas o generarlos con valores aleatorios.\n"
+      ],
+      "metadata": {
+        "id": "F8VnyxgpaKxM"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "2_96XZnfaaVJ"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "Ejemplo:\n",
+        "# Crear un arreglo a partir de una lista\n",
+        "a = np.array([1, 2, 3, 4, 5])\n",
+        "print(\"Arreglo a partir de una lista:\", a)\n",
+        "\n",
+        "#Devuelve array([0, 0, 0, 0])\n",
+        "np.zeros(4)\n",
+        "\n",
+        "# Crear un arreglo de unos\n",
+        "np.ones(5)\n",
+        "\n",
+        "# Crear un arreglo de números aleatorios\n",
+        "random_arr = np.random.rand(2, 2)\n",
+        "print(\"Arreglo aleatorio:\\n\", random_arr)\n"
+      ],
+      "metadata": {
+        "id": "eC2aOIz8a6PE"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Paso 3: Operaciones básicas\n",
+        "Se pueden hacer operaciones entre los arreglos\n"
+      ],
+      "metadata": {
+        "id": "HAgMxBpaa9PE"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Ejemplo de código:\n",
+        "# Definir dos arreglos\n",
+        "b = np.array([10, 50, 30, 80, 25])\n",
+        "\n",
+        "# Operaciones\n",
+        "print(\"Suma:\", a + b)\n",
+        "print(\"Resta:\", a - b)\n",
+        "print(\"Multiplicación:\", a * b)\n",
+        "print(\"División:\", a / b)"
+      ],
+      "metadata": {
+        "id": "VOFOYGX3bIPp"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Paso 4: Indica cómo acceder y modificar elementos dentro de un arreglo."
+      ],
+      "metadata": {
+        "id": "3FFD_eXXbSOH"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Ejemplo de código:\n",
+        "\n",
+        "# Acceso a elementos\n",
+        "print(\"Primer elemento de a:\", a[0])\n",
+        "print(\"Último elemento de b:\", b[-1])\n",
+        "\n",
+        "# Slicing\n",
+        "print(\"Elementos del índice 1 al 3 en a:\", a[1:4])\n"
+      ],
+      "metadata": {
+        "id": "RxUNC_AgbXCH"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Paso 5: Funciones útiles de NumPy"
+      ],
+      "metadata": {
+        "id": "mmfM8XmLbgCF"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Ejemplo de código:\n",
+        "# Funciones\n",
+        "print(\"Suma de todos los elementos en a:\", np.sum(a))\n",
+        "print(\"Media de b:\", np.mean(b))\n",
+        "print(\"Máximo de b:\", np.max(b))\n",
+        "print(\"Mínimo de a:\", np.min(a))\n",
+        "\n",
+        "# Ejemplos con álgebra: Muestra operaciones básicas de álgebra lineal, como el producto de matrices.\n",
+        "\n",
+        "# Ejemplo de código:\n",
+        "# Producto de matrices\n",
+        "matrix_a = np.array([[1, 2], [3, 4]])\n",
+        "matrix_b = np.array([[5, 6], [7, 8]])\n",
+        "\n",
+        "product = np.dot(matrix_a, matrix_b)\n",
+        "print(\"Producto de matrices:\\n\", product)"
+      ],
+      "metadata": {
+        "id": "91BJdstccE48"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Paso 6: Explica cómo generar arreglos de valores específicos, como arange, linspace, y eye."
+      ],
+      "metadata": {
+        "id": "J9xb-3FlcI3v"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Ejemplo de código:\n",
+        "# arange crea un arreglo con valores en un rango\n",
+        "arreglo = np.arange(0, 10, 2)\n",
+        "print(\"Arreglo usando arange:\", arreglo)\n",
+        "\n",
+        "# linspace crea un arreglo de valores igualmente espaciados\n",
+        "linspace_arr = np.linspace(0, 1, 5)\n",
+        "print(\"Arreglo usando linspace:\", linspace_arr)\n",
+        "\n",
+        "# eye crea una matriz identidad\n",
+        "identity_matrix = np.eye(3)\n",
+        "print(\"Matriz identidad:\\n\", identity_matrix)\n"
+      ],
+      "metadata": {
+        "id": "iaSbFbCGcTse"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
